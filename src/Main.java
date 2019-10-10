@@ -25,11 +25,11 @@ class MyThread implements Runnable {
         for (int i = start; i <= end; i++) {
             System.out.println("Thread " + Thread.currentThread().getId() + " is on --> " + i);
             sum = sum + i;
-            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); } //pause
+            try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); } //pause
         }
         System.out.println("Thread " + Thread.currentThread().getId() + " sum = " + sum); //print sum of each thread
         total += sum;
-        System.out.println(Thread.currentThread().getId() + " Exiting"); //print thread exit
+        System.out.println("Thread " + Thread.currentThread().getId() + " Exiting"); //print thread exit
     }
 
     //method to return total sum of each thread
@@ -42,11 +42,11 @@ public class Main {
     public static void main (String[] args) throws InterruptedException {
 
         //get starting range from user
-        System.out.print("Enter the starting number: ");
+        System.out.print("Enter starting number: ");
         int start = new Scanner(System.in).nextInt();
 
         //get end range from user
-        System.out.print("Enter the ending number: ");
+        System.out.print("Enter ending number: ");
         int end = new Scanner(System.in).nextInt();
 
         //get number of threads from user
@@ -68,7 +68,9 @@ public class Main {
             }
             t.join(); //join threads before displaying end message
             System.out.println("\nAll threads completed."); //end message
-            System.out.println("\nTotal sum is: " + new MyThread().getSum()); //print total sum
+            System.out.println("\n==============================");
+            System.out.println("Total sum is: " + new MyThread().getSum()); //print total sum
+            System.out.println("==============================");
         } else {
             System.out.println("Sorry, the range of numbers is not divisible by the number of threads, please try again");
         }
