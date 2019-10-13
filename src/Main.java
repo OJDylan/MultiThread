@@ -51,16 +51,18 @@ public class Main {
 
         //get number of threads from user
         System.out.print("Enter the number of threads: ");
-        int n = new Scanner(System.in).nextInt();
+        int numThreads = new Scanner(System.in).nextInt();
+
+        System.out.println("==============================\n");
 
         int range = ((end - start) + 1); //calculate range
-        int sub_range = range/n; //divides range into sub-ranges by number of threads
+        int sub_range = range/numThreads; //divides range into sub-ranges by number of threads
 
         Thread t = new Thread();
 
-        if (range % n == 0) {
+        if (range % numThreads == 0) {
             //create threads
-            for (int i=0; i<n; i++) {
+            for (int i=0; i<numThreads; i++) {
                 t = new Thread(new MyThread(start, start + sub_range - 1)); //passes start number to end number divided by the number of threads
                 t.start();
                 Thread.sleep(500);
@@ -72,7 +74,8 @@ public class Main {
             System.out.println("Total sum is: " + new MyThread().getSum()); //print total sum
             System.out.println("==============================");
         } else {
-            System.out.println("Sorry, the range of numbers is not divisible by the number of threads, please try again");
+            System.out.println(
+                    "Sorry, the range of numbers cannot be equally divided by the number of threads, please try again");
         }
     }
 }
