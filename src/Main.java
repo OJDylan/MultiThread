@@ -28,11 +28,11 @@ class MyThread implements Runnable {
             try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); } //pause
         }
         System.out.println("Thread " + Thread.currentThread().getId() + " sum = " + sum); //print sum of each thread
-        total += sum;
+        total += sum; //store sum of each thread
         System.out.println("Thread " + Thread.currentThread().getId() + " Exiting"); //print thread exit
     }
 
-    //method to return total sum of each thread
+    //method to return total sum of all threads
     int getSum() {
         return total;
     }
@@ -41,11 +41,11 @@ class MyThread implements Runnable {
 public class Main {
     public static void main (String[] args) throws InterruptedException {
 
-        //get starting range from user
+        //get starting number from user
         System.out.print("Enter starting number: ");
         int start = new Scanner(System.in).nextInt();
 
-        //get end range from user
+        //get end number from user
         System.out.print("Enter ending number: ");
         int end = new Scanner(System.in).nextInt();
 
@@ -56,17 +56,17 @@ public class Main {
         System.out.println("==============================\n");
 
         int range = ((end - start) + 1); //calculate range
-        int sub_range = range/numThreads; //divides range into sub-ranges by number of threads
+        int sub_range = range/numThreads; //divides range into sub-ranges by the number of threads
 
         Thread t = new Thread();
 
         if (range % numThreads == 0) {
-            //create threads
+            //create the threads
             for (int i=0; i<numThreads; i++) {
-                t = new Thread(new MyThread(start, start + sub_range - 1)); //passes start number to end number divided by the number of threads
+                t = new Thread(new MyThread(start, start + sub_range - 1)); //passes start and end number of a subrange
                 t.start();
-                Thread.sleep(500);
-                start += sub_range; //starts on the number after the last end number
+                Thread.sleep(500); //pause
+                start += sub_range; //starts on number after the last end number
             }
             t.join(); //join threads before displaying end message
             System.out.println("\nAll threads completed."); //end message
